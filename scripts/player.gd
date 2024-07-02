@@ -26,9 +26,13 @@ func _process(_delta) -> void:
 
 	if Input.is_action_just_pressed("attack") and laser_can_shoot:
 		laser.emit(laser_start_position.global_position)
-
 		laser_can_shoot = false
 		laser_cooldown.start()
+		$Audio/LaserSound.play()
+		
 
 func _on_laser_cooldown_timeout():
 	laser_can_shoot = true
+
+func play_collision_sound() -> void:
+	$Audio/Damage.play()

@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://qocnwnbwj2wa"]
 
-[ext_resource type="FontFile" uid="uid://cmfm0qgcxvouq" path="res://graphics/font/subatomic.tsoonami.ttf" id="1_mbuvs"]
-[ext_resource type="Texture2D" uid="uid://bbbhej0k8yjsu" path="res://graphics/ship/playerShip1_red.png" id="2_xdrnw"]
+[ext_resource type="Script" path="res://scripts/UI.gd" id="1_0m82h"]
+[ext_resource type="FontFile" uid="uid://cmfm0qgcxvouq" path="res://graphics/font/subatomic.tsoonami.ttf" id="1_fof87"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="UI" type="CanvasLayer" groups=["UI"]]
+script = ExtResource("1_0m82h")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 5
@@ -18,7 +19,7 @@ theme_override_constants/margin_top = 20
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.886275, 1, 1)
-theme_override_fonts/font = ExtResource("1_mbuvs")
+theme_override_fonts/font = ExtResource("1_fof87")
 theme_override_font_sizes/font_size = 50
 text = "Score"
 horizontal_alignment = 1
@@ -34,14 +35,7 @@ grow_vertical = 0
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer2/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_xdrnw")
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer2/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_xdrnw")
-
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer2/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_xdrnw")
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

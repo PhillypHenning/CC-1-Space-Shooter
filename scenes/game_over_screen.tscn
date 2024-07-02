@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://l25tsxqotsmr"]
+[gd_scene load_steps=4 format=3 uid="uid://l25tsxqotsmr"]
 
+[ext_resource type="Script" path="res://scripts/game_over_screen.gd" id="1_lh0fq"]
 [ext_resource type="FontFile" uid="uid://cmfm0qgcxvouq" path="res://graphics/font/subatomic.tsoonami.ttf" id="1_q01k4"]
+[ext_resource type="AudioStream" uid="uid://boy1lml1e28ts" path="res://audio/title_music.wav" id="3_xgl8w"]
 
 [node name="GameOverScreen" type="CanvasLayer"]
+script = ExtResource("1_lh0fq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -47,8 +50,12 @@ theme_override_fonts/font = ExtResource("1_q01k4")
 theme_override_font_sizes/font_size = 50
 text = "Game Over"
 
-[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Score" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_q01k4")
-text = "Your Score: 0"
+text = "Your Score:"
 horizontal_alignment = 1
+
+[node name="GameOverMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xgl8w")
+autoplay = true

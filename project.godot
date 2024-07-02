@@ -14,6 +14,10 @@ config/name="CC-1 Space Shooter"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://global/global.gd"
+
 [display]
 
 window/size/viewport_width=1280

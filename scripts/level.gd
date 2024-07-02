@@ -4,6 +4,7 @@ var meteor_scene: PackedScene = load("res://scenes/meteor.tscn")
 var laser_scene: PackedScene = load("res://scenes/laser.tscn")
 var star_scene: PackedScene = load("res://scenes/star.tscn")
 
+var health: int = 3
 
 func _ready() -> void:
 	var rng = RandomNumberGenerator.new()
@@ -14,13 +15,25 @@ func _ready() -> void:
 		var star = star_scene.instantiate()
 		$Stars.add_child(star)
 		star.position = random_spot_on_screen
+		get_tree().call_group("UI", 'set_health', health)
 
 
 func _on_meteor_timer_timeout():
 	var meteor = meteor_scene.instantiate()
 	
-	# Attack the node to the scene tree
+	# Attach the node to the scene tree
 	$Meteors.add_child(meteor)
+	
+	# connect the signal
+	meteor.connect("collision", _on_meteor_collision)
+
+
+func _on_meteor_collision() -> void:
+	$Player.play_collision_sound()
+	health -= 1
+	get_tree().call_group("UI", 'set_health', health)
+	if health <= 0:
+		get_tree().change_scene_to_file("res://scenes/game_over_screen.tscn")
 
 
 func _on_player_laser(laser_position: Vector2):

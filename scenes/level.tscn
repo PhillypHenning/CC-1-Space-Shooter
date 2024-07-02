@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cx30tsre053ql"]
+[gd_scene load_steps=10 format=3 uid="uid://cx30tsre053ql"]
 
 [ext_resource type="PackedScene" uid="uid://cb2ifycslt7xj" path="res://scenes/player.tscn" id="1_6njj8"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_aiguk"]
 [ext_resource type="Texture2D" uid="uid://dit3ylvhlqjtq" path="res://graphics/other/bg.png" id="2_tw7ks"]
-[ext_resource type="PackedScene" uid="uid://qocnwnbwj2wa" path="res://scenes/canvas_layer.tscn" id="4_b6v0l"]
+[ext_resource type="PackedScene" uid="uid://qocnwnbwj2wa" path="res://scenes/UI.tscn" id="4_b6v0l"]
+[ext_resource type="AudioStream" uid="uid://bgu76ysx82j2w" path="res://audio/damage.ogg" id="5_djway"]
+[ext_resource type="AudioStream" uid="uid://bvviwatjqo8h6" path="res://audio/game_music.wav" id="6_sqo3n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lgx5g"]
 size = Vector2(50, 720)
@@ -73,14 +75,23 @@ script = SubResource("GDScript_huyjm")
 [node name="Meteors" type="Node2D" parent="."]
 metadata/_edit_group_ = true
 
-[node name="Player" parent="." instance=ExtResource("1_6njj8")]
-position = Vector2(-5, -2)
-metadata/_edit_group_ = true
-
 [node name="Stars" type="Node2D" parent="."]
 metadata/_edit_group_ = true
 
 [node name="CanvasLayer" parent="." instance=ExtResource("4_b6v0l")]
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Damage" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("5_djway")
+
+[node name="GameMusic" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("6_sqo3n")
+autoplay = true
+
+[node name="Player" parent="." instance=ExtResource("1_6njj8")]
+position = Vector2(-5, -2)
+metadata/_edit_group_ = true
 
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
 [connection signal="laser" from="Player" to="." method="_on_player_laser"]
